@@ -55,8 +55,6 @@ static unsigned int top_load[CLUSTER_MAX];
 static unsigned int curr_cap[CLUSTER_MAX];
 
 static int touchboost = 1;
-
-
 /*******************************sysfs start************************************/
 static int set_touchboost(const char *buf, const struct kernel_param *kp)
 {
@@ -66,11 +64,6 @@ static int set_touchboost(const char *buf, const struct kernel_param *kp)
 		return -EINVAL;
 	touchboost = val;
 	return cnt;
-	int val;
-	if (sscanf(buf, "%d\n", &val) != 1)
-		return -EINVAL;
-	touchboost = val;
-	return 0;
 }
 
 static int get_touchboost(char *buf, const struct kernel_param *kp)
@@ -91,8 +84,9 @@ static int set_cpu_min_freq(const char *buf, const struct kernel_param *kp)
 	struct cpufreq_policy policy;
 	cpumask_var_t limit_mask;
 
-if (!touchboost) {
+int ret = 0;
 
+        if (!touchboost) {
 		pr_info("Ignored touchboost event!\n");
 		return ret;
 	}
