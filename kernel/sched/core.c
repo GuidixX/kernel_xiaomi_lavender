@@ -748,6 +748,9 @@ static DEFINE_MUTEX(uclamp_mutex);
 /* Max allowed minimum utilization */
 unsigned int sysctl_sched_uclamp_util_min = 128;
 
+/* Max allowed maximum utilization */
+unsigned int sysctl_sched_uclamp_util_max = SCHED_CAPACITY_SCALE;
+
 /*
  * By default RT tasks run at the maximum performance point/capacity of the
  * system. Uclamp enforces this by always setting UCLAMP_MIN of RT tasks to
